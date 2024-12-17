@@ -2,4 +2,4 @@
 - `poetry run pytest`
  
 # Submit
-- `exercism submit python/<directory>`
+- `exercism submit <directory>/<file_name>_test.py`
