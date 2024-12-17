@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.13"
 watchdog = "^6.0.0"
 pytest = "^8.3.4"
+pytest-watch = "^4.2.0"
 
 
 [build-system]
