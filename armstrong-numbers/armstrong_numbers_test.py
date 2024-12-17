@@ -9,6 +9,7 @@ from armstrong_numbers import (
 )
 
 
+
 class ArmstrongNumbersTest(unittest.TestCase):
     def test_zero_is_an_armstrong_number(self):
         self.assertIs(is_armstrong_number(0), True)

@@ -1,11 +1,16 @@
+from functools import reduce
+
 def is_armstrong_number(number):
     if number == 0:
         return True
 
     number_to_string = str(number)
-    result = 0
+    inner_pow = len(number_to_string)
 
-    for i in number_to_string:
-        result = result + pow(int(i), len(number_to_string))
+    def add(acc, current):
+        return int(acc) + pow(int(current), inner_pow)
 
-    return result == number
+    result_2 = reduce(add, number_to_string, 0)
+
+
+    return result_2 == number
