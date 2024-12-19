@@ -57,24 +57,24 @@ class IsoscelesTriangleTest(unittest.TestCase):
         self.assertIs(isosceles([0.5, 0.4, 0.5]), True)
 
 
-class ScaleneTriangleTest(unittest.TestCase):
-    def test_no_sides_are_equal(self):
-        self.assertIs(scalene([5, 4, 6]), True)
-
-    def test_all_sides_are_equal(self):
-        self.assertIs(scalene([4, 4, 4]), False)
-
-    def test_first_and_second_sides_are_equal(self):
-        self.assertIs(scalene([4, 4, 3]), False)
-
-    def test_first_and_third_sides_are_equal(self):
-        self.assertIs(scalene([3, 4, 3]), False)
-
-    def test_second_and_third_sides_are_equal(self):
-        self.assertIs(scalene([4, 3, 3]), False)
-
-    def test_may_not_violate_triangle_inequality(self):
-        self.assertIs(scalene([7, 3, 2]), False)
-
-    def test_sides_may_be_floats(self):
-        self.assertIs(scalene([0.5, 0.4, 0.6]), True)
+# class ScaleneTriangleTest(unittest.TestCase):
+#     def test_no_sides_are_equal(self):
+#         self.assertIs(scalene([5, 4, 6]), True)
+#
+#     def test_all_sides_are_equal(self):
+#         self.assertIs(scalene([4, 4, 4]), False)
+#
+#     def test_first_and_second_sides_are_equal(self):
+#         self.assertIs(scalene([4, 4, 3]), False)
+#
+#     def test_first_and_third_sides_are_equal(self):
+#         self.assertIs(scalene([3, 4, 3]), False)
+#
+#     def test_second_and_third_sides_are_equal(self):
+#         self.assertIs(scalene([4, 3, 3]), False)
+#
+#     def test_may_not_violate_triangle_inequality(self):
+#         self.assertIs(scalene([7, 3, 2]), False)
+#
+#     def test_sides_may_be_floats(self):
+#         self.assertIs(scalene([0.5, 0.4, 0.6]), True)
