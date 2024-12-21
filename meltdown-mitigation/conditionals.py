@@ -1,6 +1,14 @@
 """Functions to prevent a nuclear meltdown."""
 
-
+# The first thing a control system has to do is check if the reactor is balanced in criticality.
+# A reactor is said to be critical if it satisfies the following conditions:
+#
+# - The temperature is less than 800 K.
+# - The number of neutrons emitted per second is greater than 500.
+# - The product of temperature and neutrons emitted per second is less than 500000.
+#
+# Implement the function `is_criticality_balanced()` that takes `temperature` measured in kelvin and `neutrons_emitted`
+# as parameters, and returns `True` if the criticality conditions are met, `False` if not.
 def is_criticality_balanced(temperature, neutrons_emitted):
     """Verify criticality is balanced.
 
@@ -13,8 +21,15 @@ def is_criticality_balanced(temperature, neutrons_emitted):
     - The number of neutrons emitted per second is greater than 500.
     - The product of temperature and neutrons emitted per second is less than 500000.
     """
+    temperature_is_lower_than_800 = temperature < 800
+    quantities_of_neutrons_emitted_is_greater_than_500 = neutrons_emitted > 500
+    product_of_neutrons_and_temperature_emitted_per_second_is_less_than_500000 = temperature * neutrons_emitted < 500000
 
-    pass
+    if temperature_is_lower_than_800 and quantities_of_neutrons_emitted_is_greater_than_500 and product_of_neutrons_and_temperature_emitted_per_second_is_less_than_500000:
+        return True
+
+
+    return False
 
 
 def reactor_efficiency(voltage, current, theoretical_max_power):
