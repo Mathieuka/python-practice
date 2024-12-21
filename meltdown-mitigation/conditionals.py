@@ -32,6 +32,19 @@ def is_criticality_balanced(temperature, neutrons_emitted):
     return False
 
 
+# 1. `green` -> efficiency of 80% or more,
+# 2. `orange` -> efficiency of less than 80% but at least 60%,
+# 3. `red` -> efficiency below 60%, but still 30% or more,
+# 4. `black` ->  less than 30% efficient.
+#
+# The percentage value can be calculated as `(generated_power/theoretical_max_power)*100`
+# where `generated_power` = `voltage` * `current`.
+# Note that the percentage value is usually not an integer number, so make sure to consider the
+# proper use of the `<` and `<=` comparisons.
+#
+# Implement the function `reactor_efficiency(<voltage>, <current>, <theoretical_max_power>)`, with three parameters: `voltage`,
+# `current`, and `theoretical_max_power`.
+# This function should return the efficiency band of the reactor : 'green', 'orange', 'red', or 'black'.
 def reactor_efficiency(voltage, current, theoretical_max_power):
     """Assess reactor efficiency zone.
 
@@ -51,8 +64,23 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
     (generated power/ theoretical max power)*100
     where generated power = voltage * current
     """
+    generated_power = voltage * current
+    efficiency_percentage = (generated_power / theoretical_max_power) * 100
 
-    pass
+    green = efficiency_percentage >= 80
+    orange = 60 <= efficiency_percentage < 80
+    red = 30 <= efficiency_percentage < 60
+    black = efficiency_percentage < 30
+
+    if green:
+        return 'green'
+    elif orange:
+        return 'orange'
+    elif red:
+        return 'red'
+    elif black:
+        return 'black'
+
 
 
 def fail_safe(temperature, neutrons_produced_per_second, threshold):
