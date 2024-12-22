@@ -68,10 +68,16 @@ class MeltdownMitigationTest(unittest.TestCase):
     def test_fail_safe(self):
         temp = 10
         threshold = 10000
-        test_data = ((399, 'LOW'), (300, 'LOW'), (1, 'LOW'),
-                     (0, 'LOW'), (901, 'NORMAL'), (1000, 'NORMAL'),
-                     (1099, 'NORMAL'), (899, 'LOW'), (700, 'LOW'),
-                     (400, 'LOW'), (1101, 'DANGER'), (1200, 'DANGER'))
+        test_data = (
+            (399, 'LOW'),
+            (300, 'LOW'), (1, 'LOW'),
+            (1200, 'DANGER'),
+            (0, 'LOW'),
+            (901, 'NORMAL'),
+            (1000, 'NORMAL'),
+            (1099, 'NORMAL'), (899, 'LOW'), (700, 'LOW'),
+            (400, 'LOW'), (1101, 'DANGER'), (1200, 'DANGER')
+        )
 
         for variant, (neutrons_per_second, expected) in enumerate(test_data, start=1):
             with self.subTest(f'variation #{variant}', temp=temp, neutrons_per_second=neutrons_per_second,

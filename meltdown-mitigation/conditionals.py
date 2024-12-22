@@ -22,10 +22,10 @@ def is_criticality_balanced(temperature, neutrons_emitted):
     - The product of temperature and neutrons emitted per second is less than 500000.
     """
     temperature_is_lower_than_800 = temperature < 800
-    quantities_of_neutrons_emitted_is_greater_than_500 = neutrons_emitted > 500
+    neutron_count_gt_500 = neutrons_emitted > 500
     product_of_neutrons_and_temperature_emitted_per_second_is_less_than_500000 = temperature * neutrons_emitted < 500000
 
-    if temperature_is_lower_than_800 and quantities_of_neutrons_emitted_is_greater_than_500 and product_of_neutrons_and_temperature_emitted_per_second_is_less_than_500000:
+    if temperature_is_lower_than_800 and neutron_count_gt_500 and product_of_neutrons_and_temperature_emitted_per_second_is_less_than_500000:
         return True
 
 
@@ -67,22 +67,32 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
     generated_power = voltage * current
     efficiency_percentage = (generated_power / theoretical_max_power) * 100
 
-    green = efficiency_percentage >= 80
-    orange = 60 <= efficiency_percentage < 80
-    red = 30 <= efficiency_percentage < 60
-    black = efficiency_percentage < 30
-
-    if green:
+    if efficiency_percentage >= 80:
         return 'green'
-    elif orange:
+    if efficiency_percentage >= 60:
         return 'orange'
-    elif red:
+    if efficiency_percentage >= 30:
         return 'red'
-    elif black:
-        return 'black'
+    return 'black'
 
 
-
+# Your final task involves creating a fail-safe mechanism to avoid overload and meltdown.
+# This mechanism will determine if the reactor is below, at, or above the ideal criticality threshold.
+# Criticality can then be increased, decreased, or stopped by inserting (or removing) control rods into the reactor.
+#
+# Implement the function called `fail_safe()`, which takes 3 parameters: `temperature` measured in kelvin,
+# `neutrons_produced_per_second`, and `threshold`, and outputs a status code for the reactor.
+#
+# - If `temperature * neutrons_produced_per_second` < 90% of `threshold`, output a status code of 'LOW'
+#   indicating that control rods must be removed to produce power.
+#
+# - If the value `temperature * neutrons_produced_per_second` is within 10% of the
+#   `threshold` (so either 0-10% less than the threshold, at the threshold, or 0-10% greater
+#   than the threshold), the reactor is in _criticality_ and the status code of 'NORMAL' should be output,
+#   indicating that the reactor is in optimum condition and control rods are in an ideal position.
+#
+# - If `temperature * neutrons_produced_per_second` is not in the above-stated ranges, the reactor is
+#   going into meltdown and a status code of 'DANGER' must be passed to immediately shut down the reactor.
 def fail_safe(temperature, neutrons_produced_per_second, threshold):
     """Assess and return status code for the reactor.
 
@@ -95,5 +105,15 @@ def fail_safe(temperature, neutrons_produced_per_second, threshold):
     2. 'NORMAL' -> `temperature * neutrons per second` +/- 10% of `threshold`
     3. 'DANGER' -> `temperature * neutrons per second` is not in the above-stated ranges
     """
+    result = temperature * neutrons_produced_per_second
+    percentage = (result / threshold) * 100
 
-    pass
+    is_low = percentage < 90
+    is_critical = percentage >= 90 and percentage > 110
+
+    if is_low:
+        return 'LOW'
+    if is_critical:
+        return 'DANGER'
+
+    return 'NORMAL'
