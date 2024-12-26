@@ -85,7 +85,7 @@ def contain_qu(text):
 # - `"rhythm"` -> `"ythmrh"` -> `"ythmrhay"` (starts with multiple consonants followed by `"y"`)
 def consonants_preceding_y(text):
     match = re.search('y', text, flags=re.IGNORECASE)
-    if not bool(match):
+    if text[0] == "y" or not bool(match):
         return False
 
     prefix = text[:match.start()]
@@ -94,10 +94,11 @@ def consonants_preceding_y(text):
         return False
 
     y_preceding_segment = text[:match.start()]
+    y_after_segment = text[match.end():]
 
-    return y_preceding_segment
+    return "y" + y_after_segment + y_preceding_segment + "ay"
 
-def translate(text):
+def transform_word(text):
     qu_segment = contain_qu(text)
 
     if qu_segment:
@@ -106,10 +107,23 @@ def translate(text):
 
     result = consonants_preceding_y(text)
     if result:
-        return "y" + result + "ay"
+
+        return result
 
     if bool(begin_with_consonants(text)) and not begin_with_xr(text) and not begin_with_yt(text):
         return begin_with_consonants(text) + "ay"
 
     if begin_with_vowel(text) or begin_with_xr(text) or begin_with_yt(text):
         return text + "ay"
+
+
+def translate(text):
+    acc = ""
+
+    for word in text.split():
+        if len(acc) == 0:
+            acc = transform_word(word)
+        else:
+            acc = acc + " " + transform_word(word)
+
+    return acc

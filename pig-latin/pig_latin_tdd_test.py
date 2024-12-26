@@ -58,8 +58,8 @@ class WordContainQu(unittest.TestCase):
 
 class WordContainY(unittest.TestCase):
     def test_word_starting_with_consonants_followed_by_y(self):
-        self.assertEqual(consonants_preceding_y("my"),  "m")
-        self.assertEqual(consonants_preceding_y("mjy"),  "mj")
+        self.assertEqual(consonants_preceding_y("my"),  "ymay")
+        self.assertEqual(consonants_preceding_y("mjy"),  "ymjay")
         self.assertEqual(consonants_preceding_y("mjay"),  False)
 
     def test_word_not_starting_with_consonants_followed_by_y(self):
@@ -95,8 +95,10 @@ class PigLatinTest(unittest.TestCase):
         self.assertEqual(translate("y"), "yay")
         self.assertEqual(translate("yy"), "yyay")
 
+    def test_y_is_treated_like_a_vowel_at_the_end_of_a_consonant_cluster(self):
+        self.assertEqual(translate("rhythm"), "ythmrhay")
 
-
-
+    def test_a_whole_phrase(self):
+        self.assertEqual(translate("quick fast run"), "ickquay astfay unray")
 
 
