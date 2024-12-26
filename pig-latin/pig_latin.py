@@ -60,6 +60,7 @@ def is_vowels_before_qu(prefix):
         if char in vowels:
             return True
 
+
 def contain_qu(text):
     match = re.search("qu", text, flags=re.IGNORECASE)
 
@@ -76,6 +77,25 @@ def contain_qu(text):
     return qu_segment
 
 
+# If a word starts with one or more consonants followed by `"y"`, first move the consonants
+# preceding the `"y"`to the end of the word, and then add an `"ay"` sound to the end of the word.
+#
+# Some examples:
+# - `"my"` -> `"ym"` -> `"ymay"` (starts with single consonant followed by `"y"`)
+# - `"rhythm"` -> `"ythmrh"` -> `"ythmrhay"` (starts with multiple consonants followed by `"y"`)
+def consonants_preceding_y(text):
+    match = re.search('y', text, flags=re.IGNORECASE)
+    if not bool(match):
+        return False
+
+    prefix = text[:match.start()]
+
+    if is_vowels_before_qu(prefix):
+        return False
+
+    y_preceding_segment = text[:match.start()]
+
+    return y_preceding_segment
 
 def translate(text):
     qu_segment = contain_qu(text)
@@ -83,6 +103,10 @@ def translate(text):
     if qu_segment:
         offset_after_qu = len(qu_segment)
         return text[offset_after_qu:] + qu_segment + "ay"
+
+    result = consonants_preceding_y(text)
+    if result:
+        return "y" + result + "ay"
 
     if bool(begin_with_consonants(text)) and not begin_with_xr(text) and not begin_with_yt(text):
         return begin_with_consonants(text) + "ay"
