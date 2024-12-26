@@ -9,7 +9,8 @@ from pig_latin import (
     begin_with_vowel,
     begin_with_xr,
     begin_with_yt,
-    begin_with_consonants
+    begin_with_consonants,
+    contain_qu
 )
 
 class WordBeginWithVowel(unittest.TestCase):
@@ -40,6 +41,19 @@ class WordBeginWithConsonants(unittest.TestCase):
     def test_word_not_begin_with_consonants(self):
         self.assertEqual(begin_with_consonants("iay"), False)
 
+class WordContainQu(unittest.TestCase):
+    def test_word_starting_with_consonants_contain_qu(self):
+        self.assertEqual(contain_qu("qu"), "qu")
+        self.assertEqual(contain_qu("zquo"), "zqu")
+
+    def test_word_starting_with_consonants_followed_by_vowels_contain_qu(self):
+        self.assertEqual(contain_qu("zaquo"), False)
+
+    def test_word_starting_with_vowels_contain_qu(self):
+        self.assertEqual(contain_qu("aquo"), False)
+
+    def test_word_not_contain_qu(self):
+        self.assertEqual(contain_qu("zauo"), False)
 
 class PigLatinTest(unittest.TestCase):
     def test_word_beginning_with_a(self):
@@ -59,6 +73,12 @@ class PigLatinTest(unittest.TestCase):
 
     def test_word_chair(self):
         self.assertEqual(translate("chair"), "airchay")
+
+    def test_word_quick(self):
+        self.assertEqual(translate("quick"), "ickquay")
+
+    def test_word_square(self):
+        self.assertEqual(translate("square"), "aresquay")
 
 
 
