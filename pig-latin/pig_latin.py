@@ -54,7 +54,7 @@ def begin_with_consonants(text):
 #
 # - `"quick"` -> `"ickqu"` -> `"ickquay"` (starts with `"qu"`, no preceding consonants)
 # - `"square"` -> `"aresqu"` -> `"aresquay"` (starts with one consonant followed by `"qu`")
-def begin_with_vowels(prefix):
+def is_vowels_before_qu(prefix):
     vowels = ["a", "e", "i", "o", "u"]
     for char in prefix:
         if char in vowels:
@@ -68,7 +68,7 @@ def contain_qu(text):
 
     prefix = text[:match.start()]
 
-    if begin_with_vowels(prefix):
+    if is_vowels_before_qu(prefix):
         return False
 
     qu_segment = text[:match.end()]
