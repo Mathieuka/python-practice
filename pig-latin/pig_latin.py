@@ -8,23 +8,17 @@ import re
 # - `"xray"` -> `"xrayay"` (starts with `"xr"`)
 # - `"yttria"` -> `"yttriaay"` (starts with `"yt"`)
 def begin_with_vowel(text):
-    vowels = ["a", "e", "i", "o", "u"]
+    vowels = {"a", "e", "i", "o", "u"}
     if text[0] in vowels:
         return text[0]
 
     return False
 
 def begin_with_xr(text):
-    if text[:2] == "xr":
-        return True
-
-    return False
+    return  text.startswith("xr")
 
 def begin_with_yt(text):
-    if text[:2] == "yt":
-        return True
-
-    return False
+    return  text.startswith("yt")
 
 # If a word begins with one or more consonants, first move those consonants to the end of the word and then add an `"ay"` sound to the end of the word.
 #
@@ -34,7 +28,7 @@ def begin_with_yt(text):
 # - `"chair"` -> `"airch"` -> `"airchay"` (starts with multiple consonants)
 # - `"thrush"` -> `"ushthr"` -> `"ushthray"` (starts with multiple consonants)
 def begin_with_consonants(text):
-    vowels = ["a", "e", "i", "o", "u"]
+    vowels = {"a", "e", "i", "o", "u"}
     result = ""
 
     for index, letter in enumerate(text):
@@ -55,7 +49,7 @@ def begin_with_consonants(text):
 # - `"quick"` -> `"ickqu"` -> `"ickquay"` (starts with `"qu"`, no preceding consonants)
 # - `"square"` -> `"aresqu"` -> `"aresquay"` (starts with one consonant followed by `"qu`")
 def is_vowels_before_qu(prefix):
-    vowels = ["a", "e", "i", "o", "u"]
+    vowels = {"a", "e", "i", "o", "u"}
     for char in prefix:
         if char in vowels:
             return True
@@ -116,14 +110,6 @@ def transform_word(text):
     if begin_with_vowel(text) or begin_with_xr(text) or begin_with_yt(text):
         return text + "ay"
 
-
 def translate(text):
-    acc = ""
+    return ' '.join(transform_word(word) for word in text.split())
 
-    for word in text.split():
-        if len(acc) == 0:
-            acc = transform_word(word)
-        else:
-            acc = acc + " " + transform_word(word)
-
-    return acc
