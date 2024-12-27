@@ -29,3 +29,7 @@ class BlackJackTest(unittest.TestCase):
         self.assertEqual(value_of_ace("10", "10"), 1)
         self.assertEqual(value_of_ace("5", "5"), 11)
         self.assertEqual(value_of_ace("A", "10"), 1)
+
+    def test_is_blackjack(self):
+        self.assertEqual(is_blackjack("A", "10"), True)
+        self.assertEqual(is_blackjack("10", "10"), False)
