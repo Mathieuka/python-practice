@@ -33,3 +33,7 @@ class BlackJackTest(unittest.TestCase):
     def test_is_blackjack(self):
         self.assertEqual(is_blackjack("A", "10"), True)
         self.assertEqual(is_blackjack("10", "10"), False)
+
+    def test_can_split_pairs(self):
+        self.assertEqual(can_split_pairs("10", "10"), True)
+        self.assertEqual(can_split_pairs("J", "8"), False)
