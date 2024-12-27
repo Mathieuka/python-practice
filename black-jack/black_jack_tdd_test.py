@@ -24,3 +24,8 @@ class BlackJackTest(unittest.TestCase):
     def test_returning_two_values(self):
         self.assertEqual(higher_card("5","2"), "5", msg="One card is greater than other")
         self.assertEqual(higher_card("J","J"), ("J", "J"), msg="Both card value is equal")
+
+    def test_value_of_ace(self):
+        self.assertEqual(value_of_ace("10", "10"), 1)
+        self.assertEqual(value_of_ace("5", "5"), 11)
+        self.assertEqual(value_of_ace("A", "10"), 1)

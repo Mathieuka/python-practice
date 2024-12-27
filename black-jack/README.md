@@ -308,7 +308,8 @@ An ace can take on multiple values, so we will fix `A` cards to a value of 1 for
 As mentioned before, an ace can be worth _either_ 1 **or** 11 points.
 Players try to get as close as possible to a score of 21, without going _over_ 21 (_going "bust"_).
 
-Define the `value_of_ace(<card_one>, <card_two>)` function with parameters `card_one` and `card_two`, which are a pair of cards already in the hand _before_ getting an ace card.
+Define the `value_of_ace(<card_one>, <card_two>)` function with parameters `card_one` and `card_two`, which are a pair 
+of cards already in the hand _before_ getting an ace card.
 Your function will have to decide if the upcoming ace will get a value of 1 or a value of 11, and return that value.
 Remember: the value of the hand with the ace needs to be as high as possible _without_ going over 21.
 
