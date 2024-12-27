@@ -17,20 +17,12 @@ def value_of_card(card):
     2.  'A' (ace card) = 1
     3.  '2' - '10' = numerical value.
     """
-    if card == "2":
-        return 2
+    numerical_value = {"A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10 }
 
-    if card == "A":
-        return 1
+    if card in numerical_value:
+        return numerical_value[card]
 
-    if card == "5":
-        return 5
-
-    if card == "8":
-        return 8
-
-    if card == "10" or card == "J" or card == "Q" or card == "K":
-        return 10
+    return 10
 
 
 
@@ -102,12 +94,18 @@ def can_split_pairs(card_one, card_two):
 
     return False
 
-
+# A -> 1 or 11
+# 1 -> 8, 9, 10
 def can_double_down(card_one, card_two):
     """Determine if a blackjack player can place a double down bet.
 
     :param card_one, card_two: str - first and second cards in hand.
     :return: bool - can the hand can be doubled down? (i.e. totals 9, 10 or 11 points).
     """
+    if card_one == 'A' and card_two == 'A' or value_of_card(card_one) + value_of_card(card_two) < 9 or value_of_card(card_one) + value_of_card(card_two) > 11:
+        return False
 
-    pass
+    return True
+
+
+

@@ -37,3 +37,9 @@ class BlackJackTest(unittest.TestCase):
     def test_can_split_pairs(self):
         self.assertEqual(can_split_pairs("10", "10"), True)
         self.assertEqual(can_split_pairs("J", "8"), False)
+
+    def test_can_double(self):
+        self.assertEqual(can_double_down('A', '8'), True)
+        self.assertEqual(can_double_down('A', '9'), True)
+        self.assertEqual(can_double_down('A', '10'), True)
+        self.assertEqual(can_double_down('A', 'A'), False)
