@@ -40,6 +40,9 @@ def higher_card(card_one, card_two):
     if value_of_card(card_one) > value_of_card(card_two):
         return card_one
 
+    if value_of_card(card_one) < value_of_card(card_two):
+        return card_two
+
     if value_of_card(card_one) == value_of_card(card_two):
         return card_one, card_two
 
@@ -94,8 +97,7 @@ def can_split_pairs(card_one, card_two):
 
     return False
 
-# A -> 1 or 11
-# 1 -> 8, 9, 10
+
 def can_double_down(card_one, card_two):
     """Determine if a blackjack player can place a double down bet.
 
