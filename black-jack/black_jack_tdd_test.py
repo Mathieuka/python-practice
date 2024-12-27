@@ -1,5 +1,4 @@
 import unittest
-import pytest
 
 from black_jack import (
                         value_of_card,
@@ -12,19 +11,16 @@ from black_jack import (
 
 
 class BlackJackTest(unittest.TestCase):
-
-    @pytest.mark.task(taskno=1)
     def test_value_of_card(self):
-        test_data = [('2', 2), ('5', 5), ('8', 8),
-                     ('A', 1), ('10', 10), ('J', 10),
-                     ('Q', 10), ('K', 10)]
+        self.assertEqual(value_of_card("2"), 2)
+        self.assertEqual(value_of_card("A"), 1)
+        self.assertEqual(value_of_card("5"), 5)
+        self.assertEqual(value_of_card("8"), 8)
+        self.assertEqual(value_of_card("10"), 10)
+        self.assertEqual(value_of_card("J"), 10)
+        self.assertEqual(value_of_card("Q"), 10)
+        self.assertEqual(value_of_card("K"), 10)
 
-        for variant, (card, expected) in enumerate(test_data, 1):
-            with self.subTest(f'variation #{variant}', card=card, expected=expected):
-                actual_result = value_of_card(card)
-                error_msg = (f'Called value_of_card({card}). '
-                             f'The function returned {actual_result} as the value of the {card} card, '
-                             f'but the test expected {expected} as the {card} card value.')
-
-                self.assertEqual(actual_result, expected, msg=error_msg)
-
+    def test_returning_two_values(self):
+        self.assertEqual(higher_card("5","2"), "5", msg="One card is greater than other")
+        self.assertEqual(higher_card("J","J"), ("J", "J"), msg="Both card value is equal")

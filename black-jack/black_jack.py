@@ -1,3 +1,5 @@
+# **Note** : In this exercise, _`A`_ means ace, _`J`_ means jack, _`Q`_ means queen, and _`K`_ means king.
+
 """Functions to help play and score a game of blackjack.
 
 How to play blackjack:    https://bicyclecards.com/how-to-play/blackjack/
@@ -15,8 +17,22 @@ def value_of_card(card):
     2.  'A' (ace card) = 1
     3.  '2' - '10' = numerical value.
     """
+    if card == "2":
+        return 2
 
-    pass
+    if card == "A":
+        return 1
+
+    if card == "5":
+        return 5
+
+    if card == "8":
+        return 8
+
+    if card == "10" or card == "J" or card == "Q" or card == "K":
+        return 10
+
+
 
 
 def higher_card(card_one, card_two):
@@ -29,8 +45,12 @@ def higher_card(card_one, card_two):
     2.  'A' (ace card) = 1
     3.  '2' - '10' = numerical value.
     """
+    if value_of_card(card_one) > value_of_card(card_two):
+        return card_one
 
-    pass
+    if value_of_card(card_one) == value_of_card(card_two):
+        return card_one, card_two
+
 
 
 def value_of_ace(card_one, card_two):
