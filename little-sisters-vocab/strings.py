@@ -1,5 +1,9 @@
 """Functions for creating, transforming, and adding prefixes to strings."""
 
+def greeting(name: str) -> str:
+    return 'Hello ' + name
+
+result  = greeting("1")
 
 def add_prefix_un(word):
     """Take the given word and add the 'un' prefix.
@@ -10,7 +14,9 @@ def add_prefix_un(word):
 
     return 'un' + word
 
-
+# Implement the `make_word_groups(<vocab_words>)` function that takes a `vocab_words` as a parameter in the following form:
+#  `[<prefix>, <word_1>, <word_2> .... <word_n>]`, and returns a string with the prefix applied to each word that looks like:
+#   `'<prefix> :: <prefix><word_1> :: <prefix><word_2> :: <prefix><word_n>'`.
 def make_word_groups(vocab_words):
     """Transform a list containing a prefix and words into a string with the prefix followed by the words with prefix prepended.
 
@@ -26,7 +32,10 @@ def make_word_groups(vocab_words):
     produces the following string: 'en :: enclose :: enjoy :: enlighten'.
     """
 
-    pass
+    prefix = vocab_words[0]
+    words = vocab_words[1:]
+    result = [prefix] + list(map(lambda word: prefix + word,words))
+    return " :: ".join(result)
 
 
 def remove_suffix_ness(word):
