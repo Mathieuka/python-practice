@@ -238,8 +238,9 @@ Strings support all [common sequence operations][common sequence operations].
 ## Instructions
 
 You are helping your younger sister with her English vocabulary homework, which she is finding very tedious.
- Her class is learning to create new words by adding _prefixes_ and _suffixes_.
- Given a set of words, the teacher is looking for correctly transformed words with correct spelling by adding the prefix to the beginning or the suffix to the ending.
+Her class is learning to create new words by adding _prefixes_ and _suffixes_.
+Given a set of words, the teacher is looking for correctly transformed words with correct spelling by adding 
+the prefix to the beginning or the suffix to the ending.
 
 The assignment has four activities, each with a set of text or words to work with.
 
