@@ -1,15 +1,17 @@
 # Doc: https://github.com/dry-python/returns?tab=readme-ov-file#maybe-container
 import random
+
 from returns.result import Result, Success, Failure
 from returns.pipeline import is_successful
+from typing import Optional
 
 
 class UserNotFoundError:
-    def __init__(self, id: str):
-        self.id = id
+    def __init__(self, user_id: str):
+        self.user_id = user_id
 
-    def create(self) -> str:
-        return f"Failed to find user with id {self.id}"
+    def message(self) -> str:
+        return f"Failed to find user with id {self.user_id}"
 
 
 class User:
@@ -19,23 +21,22 @@ class User:
 
 
 def find_user(user_id: str) -> Result["User", str]:
-    user = User("1") if random.random() < 0.5 else None
+    response: Optional[User] = User("1") if random.random() < 0.5 else None
 
-    if user:
-        return Success(user)
-    return Failure(UserNotFoundError(user_id).create())
+    if response:
+        return Success(response)
+    return Failure(UserNotFoundError(user_id).message())
 
 
-response = find_user("1")
+user = find_user("1")
 
 # Imperative way
-if is_successful(response):
-    print(response.unwrap().name)
+if is_successful(user):
+    print(f"User found: {user.unwrap().id}")
+else:
+    print(f"Error: {user.failure()}")
 
-if not is_successful(response):
-    print(response.failure())
-
-# Piping
-response.map(lambda user: print(f"User found: {user.id}")).alt(
+# FP Way
+user.map(lambda user: print(f"User found: {user.id}")).alt(
     lambda error: print(f"Error: {error}")
 )
